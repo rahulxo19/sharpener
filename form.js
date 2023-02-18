@@ -13,6 +13,10 @@ function addUser(e){
     li.className = 'list-group-item';
     li.appendChild(document.createTextNode(newName + " " + newEmail));
     users.appendChild(li);
-    localStorage.setItem(newName,newEmail);
-    console.log(localStorage.getItem(newName));
+    let obj = {
+        name : newName,
+        email : newEmail
+    }
+    localStorage.setItem('obj',JSON.stringify(obj));
+    console.log(JSON.parse(localStorage.getItem('obj')));
 }
