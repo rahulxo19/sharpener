@@ -17,6 +17,6 @@ function addUser(e){
         name : newName,
         email : newEmail
     }
-    localStorage.setItem('obj',JSON.stringify(obj));
-    console.log(JSON.parse(localStorage.getItem('obj')));
+    localStorage.setItem(newName,JSON.stringify(obj));
+    console.log(JSON.parse(localStorage.getItem(newName)));
 }
