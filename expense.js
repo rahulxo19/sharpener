@@ -100,7 +100,7 @@ async function removeItm(e) {
   }
 }
 
-function editItm(e) {
+async function editItm(e) {
   if (e.target.classList.contains("edit")) {
     var li = e.target.parentElement;
     var ul = li.parentElement;
@@ -112,7 +112,26 @@ function editItm(e) {
     price.value = toEdit[0];
     cat.value = toEdit[1];
     desc.value = toEdit[2];
-    console.log(price);
-    localStorage.removeItem(desc.value);
+    ul.removeChild(li);
+    var desc = li.firstChild.textContent.trim().split("-")[2];
+    var id,d;
+    await axios
+        .get("https://crudcrud.com/api/dcf0be8ec0fe4f3ba969376496b92e2d/coll")
+        .then((res) => {
+          const data = res.data;
+          for (let i = 0; i < data.length; i++) {
+            id = data[i]._id;
+            d = data[i].d;
+            if(d == desc){
+                break;
+            }
+          }
+        }, 1000);
+    
+        if(d == desc){
+            axios.delete(`https://crudcrud.com/api/dcf0be8ec0fe4f3ba969376496b92e2d/coll/${id}`)
+        }
+        console.log(id);
+    
   }
 }
