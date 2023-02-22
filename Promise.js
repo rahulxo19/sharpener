@@ -1,6 +1,6 @@
 const posts = ['Hi'];
 
-function updateLastUserActivityTime(){
+async function updateLastUserActivityTime(){
     return new Promise((resolve, reject) => {
         setTimeout( () => {
             const date = new Date();
@@ -10,29 +10,29 @@ function updateLastUserActivityTime(){
     })
 }
 
-function createPost(post) {
+async function createPost(post) {
     return new Promise( (resolve, reject) => {
         posts.push(post);
         resolve();
     })
 }
-function printPost() {
-    return new Promise( (resolve, reject) => {
-        posts.map((post) => {
-            console.log(`${post}`)
-        })
-        resolve();
+async function printPost() {
+    posts.map((post) => {
+        console.log(`${post}`)
     })
+    const up = await updateLastUserActivityTime();
+    return up;
 }
 function deletePost() {
-    return new Promise( (resolve, reject) => {
-        posts.pop();
-        resolve();
-    })
+    posts.pop();
 }
 
-createPost('Hello')
-.then(printPost)
-.then(updateLastUserActivityTime)
-.then(deletePost)
-.then(printPost)
+async function main() {
+    await createPost('Hello');
+    await createPost('nothing');
+    await printPost();
+    deletePost();
+    await printPost();
+  }
+  
+  main();
