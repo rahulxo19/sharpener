@@ -34,6 +34,7 @@ function addExpense(e) {
     })
     .catch((err) => console.error(err.message));
 }
+let del;
 
 window.addEventListener("DOMContentLoaded", () => {
   async function display() {
@@ -71,13 +72,31 @@ window.addEventListener("DOMContentLoaded", () => {
   main();
 });
 
-function removeItm(e) {
+async function removeItm(e) {
   if (e.target.classList.contains("delete")) {
     var li = e.target.parentElement;
     var ul = li.parentElement;
     ul.removeChild(li);
     var desc = li.firstChild.textContent.trim().split("-")[2];
     localStorage.removeItem(desc);
+    var id,d;
+    await axios
+        .get("https://crudcrud.com/api/dcf0be8ec0fe4f3ba969376496b92e2d/coll")
+        .then((res) => {
+          const data = res.data;
+          for (let i = 0; i < data.length; i++) {
+            id = data[i]._id;
+            d = data[i].d;
+            if(d == desc){
+                break;
+            }
+          }
+        }, 1000);
+    
+        if(d == desc){
+            axios.delete(`https://crudcrud.com/api/dcf0be8ec0fe4f3ba969376496b92e2d/coll/${id}`)
+        }
+        console.log(id);
   }
 }
 
