@@ -29,7 +29,11 @@ function addExpense(e){
         c : category,
         d : desc
     }
-    localStorage.setItem(desc,JSON.stringify(obj));
+    axios.post('https://crudcrud.com/api/dcf0be8ec0fe4f3ba969376496b92e2d/coll',{
+        p : price,
+        c : category,
+        d : desc
+    }).catch(err => console.error(err.message));
 }
 
 function removeItm(e){
